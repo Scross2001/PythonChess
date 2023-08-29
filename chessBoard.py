@@ -1,9 +1,13 @@
 from chessSpaces import chessSpaces
+from blackAndWhiteLibraries import blackAndWhiteLibraries
+from chessPiece import chessPiece
 maxY = 1000
 maxX = 1000
 class chessBoard:
     def __init__(self):
         self.chessboard = []
+        self.black_Team = blackAndWhiteLibraries("Black")
+        self.white_Team = blackAndWhiteLibraries("White")
         self.Initalizing_Chessboard()
     def Initalizing_Chessboard(self):
         array = []
@@ -27,8 +31,3 @@ class chessBoard:
             for space in row:
                 print(f"({space.getSquareName()})", end=" ")
             print()
-
-
-
-my_chess = chessBoard()
-my_chess.printChessCords()
