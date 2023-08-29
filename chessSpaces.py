@@ -1,9 +1,9 @@
 class chessSpaces:
-    def __init__(self, files, rank, x, y, peace):
+    def __init__(self, files, rank, x, y, piece):
         self.square = files + str(rank)
         self.x = x
         self.y = y
-        self.peace = peace
+        self.piece = piece
 
     def getCords(self):
         return "(" + self.x + "," + self.y + ")"
@@ -11,3 +11,7 @@ class chessSpaces:
         return self.square
     def printSquareName(self):
         print(self.square)
+    def spotIsEmpty(self):
+        if self.piece:
+            return False
+        return True

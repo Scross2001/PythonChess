@@ -6,15 +6,22 @@ class chessBoard:
         self.chessboard = []
         self.Initalizing_Chessboard()
     def Initalizing_Chessboard(self):
-        matrix = []
+        array = []
         global maxX
         global maxY
         for x in range(1, 9):
             row = []
             for y in range(1, 9):
                 row.append(chessSpaces(chr(x+64), y, (maxX/x), (maxY/y), False))
-            matrix.append(row)
-        self.chessboard = matrix
+            array.append(row)
+        self.chessboard = array
+    def Initalizing_Chess_Pieces(self):
+        for row in self.chessboard:
+            for space in row:
+                if "B" in space.getSquareName():
+                    print("")
+                elif "G" in space.getSquareName():
+                    print("")
     def printChessCords(self):
         for row in self.chessboard:
             for space in row:
