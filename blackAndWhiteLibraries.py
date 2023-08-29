@@ -8,7 +8,8 @@ class blackAndWhiteLibraries:
         self.dumpster = []
         self.allAlivePieces = []
 
-
+    def addPieceToTeam(self, piece):
+        self.allAlivePieces.append(piece)
     #def allPossibleMovement(self):
 
 
