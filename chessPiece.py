@@ -20,6 +20,8 @@ class chessPiece():  # Abstract class
         return self.cordX
     def getCordY(self):
         return self.cordY
+    def printCords(self):
+        print(f"({self.cordX},{self.cordY})")
     @abstractmethod
     def getMovableSpaces(self, chessboard):
         pass
@@ -39,12 +41,41 @@ class Rook(chessPiece):  # Concrete subclass
     def __init__(self, color, x, y):
         self.name = "Rook" if "Black" in color else "rook"
         self.color = color
+        self.movableSpaces = []
         self.setInitalCords(x, y)
     def getMovableSpaces(self, chessboard):
         startingLocation = chessboard[self.cordX][self.cordY]
-        print(f"{self.cordX},{self.cordY}")
-        print(startingLocation.square)
-        print(f"[ {startingLocation.chess_piece.color} {startingLocation.chess_piece.getChessPieceName()} ]")
+        startX = self.cordX
+        startY = self.cordY
+        sX = startX
+        sY = startY
+        for down in range(8):
+            print(f"({sX},{sY})")
+            spot = chessboard[sX][sY]
+            if not spot.spotIsEmpty() or sY > 8:
+                break
+            self.movableSpaces.append(spot)
+            sY += 1
+        """for right in range(8):
+            print(f"({sX},{sY})")
+            spot = chessboard[sX][sY]
+            if not spot.spotIsEmpty() or sX > 9:
+                break
+            self.movableSpaces.append(spot)
+            sX += 1
+        sX = startX
+        sY = startY
+        for left in range(8):
+            spot = chessboard[sX][sY]
+            if not spot.spotIsEmpty() or sX < -1:
+                break
+            self.movableSpaces.append(spot)
+            sX -= 1 """
+        for x in self.movableSpaces:
+            print(x.getSquareName(), end = " ")
+        #print(f"{self.cordX},{self.cordY}")
+        #print(startingLocation.square)
+        #print(f"[ {startingLocation.chess_piece.color} {startingLocation.chess_piece.getChessPieceName()} ]")
 
 class Knight(chessPiece):  # Concrete subclass
     def __init__(self, color, x, y):

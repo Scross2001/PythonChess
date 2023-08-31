@@ -24,11 +24,19 @@ class chessBoard:
                 row.append(chessSpaces(chr(x+65), y+1, x, y, False))
             array.append(row)
         self.chessboard = array
-    def Initalizing_Pawns(self, space, color):
-        pawn = Pawn(color, space.x, space.y)
-        space.piece = True
-        space.chess_piece = pawn
-        
+    def Initalizing_Pawns(self, color, row):
+        for column in row:
+            pawn = Pawn(color, column.x, column.y)
+            column.piece = True
+            column.chess_piece = pawn
+            self.Add_Piece_To_Alive_Group(color, pawn)
+
+    def Add_Piece_To_Alive_Group(self, color, piece):
+        if "Black" in color:
+            self.black_Team.add_Piece_To_Alive_List(piece)
+        else:
+            self.white_Team.add_Piece_To_Alive_List(piece)
+
     def Initalizing_KQ_Rows(self, color, row):
         x = 1
         for column in row:
@@ -36,42 +44,52 @@ class chessBoard:
                 rook = Rook(color, column.x, column.y)
                 column.piece = True
                 column.chess_piece = rook
+                self.Add_Piece_To_Alive_Group(color, rook)
             elif(x == 2):
                 knight = Knight(color, column.x, column.y)
                 column.piece = True
                 column.chess_piece = knight
+                self.Add_Piece_To_Alive_Group(color, knight)
             elif(x == 3):
                 bishop = Bishop(color, column.x, column.y)
                 column.piece = True
                 column.chess_piece = bishop
+                self.Add_Piece_To_Alive_Group(color, bishop)
             elif(x == 4 and "Black" in color):
                 knight = King(color, column.x, column.y)
                 column.piece = True
                 column.chess_piece = knight
+                self.Add_Piece_To_Alive_Group(color, knight)
             elif(x == 5 and "Black" in color):
-                knight = Queen(color, column.x, column.y)
+                queen = Queen(color, column.x, column.y)
                 column.piece = True
-                column.chess_piece = knight
+                column.chess_piece = queen
+                self.Add_Piece_To_Alive_Group(color, queen)
             elif(x == 5 and "White" in color):
-                knight = King(color, column.x, column.y)
+                king = King(color, column.x, column.y)
                 column.piece = True
-                column.chess_piece = knight
+                column.chess_piece = king
+                self.Add_Piece_To_Alive_Group(color, king)
             elif(x == 4 and "White" in color):
-                knight = Queen(color, column.x, column.y)
+                queen = Queen(color, column.x, column.y)
                 column.piece = True
-                column.chess_piece = knight
+                column.chess_piece = queen
+                self.Add_Piece_To_Alive_Group(color, queen)
             elif(x == 6):
                 bishop = Bishop(color, column.x, column.y)
                 column.piece = True
                 column.chess_piece = bishop
+                self.Add_Piece_To_Alive_Group(color, bishop)
             elif(x == 7):
                 knight = Knight(color, column.x, column.y)
                 column.piece = True
                 column.chess_piece = knight
+                self.Add_Piece_To_Alive_Group(color, knight)
             elif(x == 8):
                 rook = Rook(color, column.x, column.y)
                 column.piece = True
                 column.chess_piece = rook
+                self.Add_Piece_To_Alive_Group(color, rook)
             x += 1
 
     def Initalizing_Chess_Pieces(self): #Initalizing the whole board and Initalizing the object pieces
@@ -80,12 +98,13 @@ class chessBoard:
                 self.Initalizing_KQ_Rows("Black", row)
             elif "H" in row[0].getSquareName():
                 self.Initalizing_KQ_Rows("White", row)
-
-            for space in row:
-                if "B" in space.getSquareName():
-                    self.Initalizing_Pawns(space, "Black")
-                elif "G" in space.getSquareName():
-                    self.Initalizing_Pawns(space, "White")
+            elif "B" in row[0].getSquareName():
+                self.Initalizing_Pawns("Black", row)
+            elif "G" in row[0].getSquareName():
+                self.Initalizing_Pawns("White", row)
+            else:
+                for column in row:
+                    column.piece = False
 
     def Get_Board_FEN_Map(self):
         for row in self.chessboard:
@@ -102,6 +121,7 @@ class chessBoard:
             if amount_of_blank_spaces > 0:
                 print(amount_of_blank_spaces, end="")
             print("/", end="")
+        print
     print()
 
     def Get_Chess_Piece_Locations(self): #Prints the chess board with files and numbers
@@ -110,13 +130,29 @@ class chessBoard:
             print(f"{str(x)}", end=" ")
             for space in row:
                 if space.spotIsEmpty() == False:
-                    print(f"[ {space.chess_piece.color[0]} {space.chess_piece.getChessPieceName()[0]} ]", end=" ")
+                    print(f"[  {space.chess_piece.getChessPieceName()[0]}  ]", end=" ")
                 else:
                     print(f"[     ]", end=" ")
             print()
             x += 1
 
         print("     A       B       C       D       E       F       G       H   ")
+    def Get_Chess_Piece_Truth_Locations(self): #Prints the chess board with files and numbers
+        x = 1
+        for row in self.chessboard:
+            print(f"{str(x)}", end=" ")
+            for space in row:
+                if space.spotIsEmpty() == False:
+                    print(f"[{space.piece} ]", end=" ")
+                else:
+                    print(f"[{space.piece}]", end=" ")
+            print()
+            x += 1
+
+        print("     A       B       C       D       E       F       G       H   ")
+    def Print_Each_Teams_Alive_Pieces(self):
+        self.black_Team.Print_Alive_And_Dead_Groups()
+        self.white_Team.Print_Alive_And_Dead_Groups()
 
     def Get_Board_Spot_Numers_And_Cords(self): #prints the spot cords and name of the spot
         for row in self.chessboard:

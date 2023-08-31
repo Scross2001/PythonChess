@@ -1,4 +1,5 @@
 from chessPiece import chessPiece
+from blackAndWhiteLibraries import blackAndWhiteLibraries
 class chessSpaces:
     def __init__(self, files, rank, x, y, piece):
         self.square = files + str(rank)
@@ -13,6 +14,12 @@ class chessSpaces:
         return "(" + str(self.x) + "," + str(self.y) + ")"
     def getSquareName(self):
         return self.square
+    def killChessPiece(self, piece, team):
+        team.add_Piece_To_Dead_Group(piece)
+        self.piece = None
+        self.chess_piece = chessPiece()
+    def removeChessPiece(self, piece):
+        self.chess_piece = chessPiece()
     def printSquareName(self):
         print(self.square)
     def spotIsEmpty(self):
