@@ -93,8 +93,6 @@ class chessBoard:
             x += 1
 
     def Initalizing_Chess_Pieces(self): #Initalizing the whole board and Initalizing the object pieces
-        
-        self.Add_Piece_To_Alive_Group("Black", bishop)
         for row in self.chessboard:
             if "1" in row[0].getSquareName():
                 self.Initalizing_KQ_Rows("Black", row)
@@ -107,10 +105,6 @@ class chessBoard:
             else:
                 for column in row:
                     column.piece = False
-        test = self.chessboard[1][3]
-        bishop = Bishop("Black", 1, 3)
-        test.piece = True
-        test.chess_piece = bishop
 
     def Get_Board_FEN_Map(self):
         for row in self.chessboard:
