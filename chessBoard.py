@@ -21,7 +21,7 @@ class chessBoard:
         for x in range(0, 8):
             row = []
             for y in range(0, 8):
-                row.append(chessSpaces(chr(x+65), y+1, x, y, False))
+                row.append(chessSpaces(x + 1, chr(y + 65), x, y, False))
             array.append(row)
         self.chessboard = array
     def Initalizing_Pawns(self, color, row):
@@ -93,18 +93,24 @@ class chessBoard:
             x += 1
 
     def Initalizing_Chess_Pieces(self): #Initalizing the whole board and Initalizing the object pieces
+        
+        self.Add_Piece_To_Alive_Group("Black", bishop)
         for row in self.chessboard:
-            if "A" in row[0].getSquareName():
+            if "1" in row[0].getSquareName():
                 self.Initalizing_KQ_Rows("Black", row)
-            elif "H" in row[0].getSquareName():
+            elif "8" in row[0].getSquareName():
                 self.Initalizing_KQ_Rows("White", row)
-            elif "B" in row[0].getSquareName():
-                self.Initalizing_Pawns("Black", row)
-            elif "G" in row[0].getSquareName():
+            elif "7" in row[0].getSquareName():
                 self.Initalizing_Pawns("White", row)
+            elif "2" in row[0].getSquareName():
+                self.Initalizing_Pawns("Black", row)
             else:
                 for column in row:
                     column.piece = False
+        test = self.chessboard[1][3]
+        bishop = Bishop("Black", 1, 3)
+        test.piece = True
+        test.chess_piece = bishop
 
     def Get_Board_FEN_Map(self):
         for row in self.chessboard:

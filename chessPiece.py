@@ -4,7 +4,6 @@ class chessPiece():  # Abstract class
     def __init__(self):
         self.name = ""
         self.movableSpaces = []
-        self.specialMoves = True
         self.color = ""
         self.isAlive = True
     def getChessPieceName(self):
@@ -30,12 +29,33 @@ class Pawn(chessPiece):  # Concrete subclass
     def __init__(self, color, x, y):
         self.name = "Pawn" if "Black" in color else "pawn"
         self.color = color
+        self.hasMoved = False
+        self.movableSpaces = []
         self.setInitalCords(x, y)
     def getMovableSpaces(self, chessboard):
+        self.movableSpaces = []
         startingLocation = chessboard[self.cordX][self.cordY]
-        print(f"{self.cordX},{self.cordY}")
-        print(startingLocation.square)
-        print(f"[ {startingLocation.chess_piece.color} {startingLocation.chess_piece.getChessPieceName()} ]")
+        
+        if(self.hasMoved == False):
+            if(chessboard[self.cordX+2][self.cordY].piece == False):
+                self.movableSpaces.append(chessboard[self.cordX + 2][self.cordY])
+            elif(chessboard[self.cordX-2][self.cordY].piece == False):
+                self.movableSpaces.append(chessboard[self.cordX - 2][self.cordY])
+            if(chessboard[self.cordX + 1][self.cordY].piece == False and "Black" in self.color ):
+                self.movableSpaces.append(chessboard[self.cordX + 1][self.cordY])
+            elif(chessboard[self.cordX - 1][self.cordY].piece == False and "White" in self.color):
+                self.movableSpaces.append(chessboard[self.cordX][self.cordY])
+        else:
+            if(chessboard[self.cordX + 1][self.cordY].piece == False and "Black" in self.color ):
+                self.movableSpaces.append(chessboard[self.cordX][self.cordY])
+            elif(chessboard[self.cordX - 1][self.cordY].piece == False and "White" in self.color):
+                self.movableSpaces.append(chessboard[self.cordX][self.cordY])
+        print(startingLocation.chess_piece.name, end = "[ ")
+        for x in self.movableSpaces:
+            print(x.getSquareName(), end = " ")
+        print("]")
+        return self.movableSpaces
+
 
 class Rook(chessPiece):  # Concrete subclass
     def __init__(self, color, x, y):
@@ -47,35 +67,11 @@ class Rook(chessPiece):  # Concrete subclass
         startingLocation = chessboard[self.cordX][self.cordY]
         startX = self.cordX
         startY = self.cordY
-        sX = startX
-        sY = startY
-        for down in range(8):
-            print(f"({sX},{sY})")
-            spot = chessboard[sX][sY]
-            if not spot.spotIsEmpty() or sY > 8:
-                break
-            self.movableSpaces.append(spot)
-            sY += 1
-        """for right in range(8):
-            print(f"({sX},{sY})")
-            spot = chessboard[sX][sY]
-            if not spot.spotIsEmpty() or sX > 9:
-                break
-            self.movableSpaces.append(spot)
-            sX += 1
-        sX = startX
-        sY = startY
-        for left in range(8):
-            spot = chessboard[sX][sY]
-            if not spot.spotIsEmpty() or sX < -1:
-                break
-            self.movableSpaces.append(spot)
-            sX -= 1 """
+        while chessboard[startX+1][startY].piece == False:
+            self.movableSpaces.append(chessboard[startX+1][startY])
+            startX += 1
         for x in self.movableSpaces:
             print(x.getSquareName(), end = " ")
-        #print(f"{self.cordX},{self.cordY}")
-        #print(startingLocation.square)
-        #print(f"[ {startingLocation.chess_piece.color} {startingLocation.chess_piece.getChessPieceName()} ]")
 
 class Knight(chessPiece):  # Concrete subclass
     def __init__(self, color, x, y):
