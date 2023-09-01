@@ -1,7 +1,7 @@
 from chessPiece import chessPiece
 from blackAndWhiteLibraries import blackAndWhiteLibraries
 class chessSpaces:
-    def __init__(self, files, rank, x, y, piece):
+    def __init__(self, rank, files, x, y, piece):
         self.square = files + str(rank)
         self.x = x
         self.y = y

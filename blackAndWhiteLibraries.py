@@ -9,7 +9,8 @@ class blackAndWhiteLibraries:
     
     def get_All_Possible_Moves_For_All_Alive_Pieces(self, chessboard):
         for pieces in self.allAlivePieces:
-            pieces.getMovableSpaces(chessboard)
+            if(pieces.name in "Pawn"):
+                pieces.getMovableSpaces(chessboard)
 
     def add_Piece_To_Alive_List(self, piece):
         self.allAlivePieces.append(piece)
