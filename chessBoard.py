@@ -1,6 +1,11 @@
 from chessSpaces import chessSpaces
 from blackAndWhiteLibraries import blackAndWhiteLibraries
-from chessPiece import Pawn, Rook, Knight, Bishop, King, Queen
+from pawn import Pawn
+from queen import Queen
+from king import King
+from knight import Knight
+from bishop import Bishop
+from rook import Rook
 MAXX = 1000
 MAXY = 1000
 STARTING_COLOR = "BLACK"
@@ -30,6 +35,8 @@ class chessBoard:
             column.piece = True
             column.chess_piece = pawn
             self.Add_Piece_To_Alive_Group(color, pawn)
+    #def movePiece(self, current, newSpot, color):
+        
 
     def Add_Piece_To_Alive_Group(self, color, piece):
         if "Black" in color:
@@ -101,10 +108,12 @@ class chessBoard:
             elif "7" in row[0].getSquareName():
                 self.Initalizing_Pawns("White", row)
             elif "2" in row[0].getSquareName():
+                #self.Initalizing_KQ_Rows("Black", row)
                 self.Initalizing_Pawns("Black", row)
             else:
                 for column in row:
                     column.piece = False
+        
 
     def Get_Board_FEN_Map(self):
         for row in self.chessboard:
