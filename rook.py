@@ -9,6 +9,7 @@ class Rook(chessPiece):  # Concrete subclass
 
     def getMovableSpaces(self, chessboard):
         self.movableSpaces = []
+        self.movableSpaces.append(self.name)
         startingLocation = chessboard[self.cordX][self.cordY]
 
         # Horizontal movement (right)
@@ -47,8 +48,8 @@ class Rook(chessPiece):  # Concrete subclass
             else:
                 self.movableSpaces.append(chessboard[self.cordX][i])
         
-        print(f"{self.color} Rook at {startingLocation.getSquareName()} can move to: ",end="")
+        """ print(f"{self.color} Rook at {startingLocation.getSquareName()} can move to: ",end="")
         for move in self.movableSpaces:
             print(move.getSquareName(),end= " ")
-        print()
+        print() """
         return self.movableSpaces

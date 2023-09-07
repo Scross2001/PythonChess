@@ -10,6 +10,26 @@ class blackAndWhiteLibraries:
     def get_All_Possible_Moves_For_All_Alive_Pieces(self, chessboard):
         for pieces in self.allAlivePieces:
             pieces.getMovableSpaces(chessboard)
+    def find_King(self, chessboard):
+        for row in chessboard:
+            for space in row:
+                if "ing" in space.chess_piece.name and self.name in space.chess_piece.color:
+                    return space
+
+    def check_King_Is_Checked_Or_Checkmated(self, chessboard, opponets):
+        allPossibleOpponetsMoves = []
+        kingLocation = self.find_King(chessboard)
+        print(kingLocation.square)
+        for pieces in opponets.allAlivePieces:
+            if "ing" not in pieces.name:
+                opponets.allPossibleMoves.append(pieces.getMovableSpaces(chessboard))
+            else:
+                kingsMoves = pieces.getMovableSpaces(chessboard)
+        for piece in opponets.allPossibleMoves:
+            for i in range(1,len(piece)):
+                if piece[i].square not in allPossibleOpponetsMoves:
+                    allPossibleOpponetsMoves.append(piece[i].square)
+        print(allPossibleOpponetsMoves)
 
     def add_Piece_To_Alive_List(self, piece):
         self.allAlivePieces.append(piece)

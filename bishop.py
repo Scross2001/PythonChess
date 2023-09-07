@@ -8,6 +8,7 @@ class Bishop(chessPiece):  # Concrete subclass
     
     def getMovableSpaces(self, chessboard):
         self.movableSpaces = []
+        self.movableSpaces.append(self.name)
         startingLocation = chessboard[self.cordX][self.cordY]
 
         diagonal_moves = [(-1, -1), (-1, 1), (1, -1), (1, 1)]
@@ -31,9 +32,9 @@ class Bishop(chessPiece):  # Concrete subclass
                 x += dx
                 y += dy
 
-        print(f"{self.color} Bishop at {startingLocation.getSquareName()} can move to: ",end="")
+        """ print(f"{self.color} Bishop at {startingLocation.getSquareName()} can move to: ",end="")
         for move in self.movableSpaces:
             print(move.getSquareName(),end= " ")
-        print()
+        print() """
 
         return self.movableSpaces

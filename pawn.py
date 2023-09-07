@@ -9,6 +9,7 @@ class Pawn(chessPiece):  # Concrete subclass
         self.setInitalCords(x, y)
     def getMovableSpaces(self, chessboard):
         self.movableSpaces = []
+        self.movableSpaces.append(self.name)
         startingLocation = chessboard[self.cordX][self.cordY]
 
         if "Black" in self.color:
@@ -42,9 +43,9 @@ class Pawn(chessPiece):  # Concrete subclass
                 if chessboard[self.cordX - 1][self.cordY - 1].chess_piece.color != self.color:
                     self.movableSpaces.append(chessboard[self.cordX - 1][self.cordY - 1])
 
-        print(f"{self.color} Pawn at {startingLocation.getSquareName()} can move to: ",end="")
+        """ print(f"{self.color} Pawn at {startingLocation.getSquareName()} can move to: ",end="")
         for move in self.movableSpaces:
             print(move.getSquareName(),end= " ")
-        print()
+        print() """
 
         return self.movableSpaces

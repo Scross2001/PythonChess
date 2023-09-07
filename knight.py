@@ -8,6 +8,7 @@ class Knight(chessPiece):  # Concrete subclass
 
     def getMovableSpaces(self, chessboard):
         self.movableSpaces = []
+        self.movableSpaces.append(self.name)
         startingLocation = chessboard[self.cordX][self.cordY]
         knight_moves = [(-1, -2), (-2, -1), (-2, 1), (-1, 2), (1, -2), (2, -1), (2, 1), (1, 2)]
 
@@ -20,8 +21,8 @@ class Knight(chessPiece):  # Concrete subclass
                 if destination.piece is False or destination.chess_piece.color != self.color:
                     self.movableSpaces.append(destination)
 
-        print(f"{self.color} Knight at {startingLocation.getSquareName()} can move to: ",end="")
+        """ print(f"{self.color} Knight at {startingLocation.getSquareName()} can move to: ",end="")
         for move in self.movableSpaces:
             print(move.getSquareName(),end= " ")
-        print()
+        print() """
         return self.movableSpaces

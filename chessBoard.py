@@ -29,6 +29,7 @@ class chessBoard:
                 row.append(chessSpaces(x + 1, chr(y + 65), x, y, False))
             array.append(row)
         self.chessboard = array
+    
     def Initalizing_Pawns(self, color, row):
         for column in row:
             pawn = Pawn(color, column.x, column.y)
