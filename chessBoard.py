@@ -44,60 +44,23 @@ class chessBoard:
             self.black_Team.add_Piece_To_Alive_List(piece)
         else:
             self.white_Team.add_Piece_To_Alive_List(piece)
-
+    def Initalize_Special_Pieces(self, spot, color, piece):
+        spot.piece = True
+        spot.chess_piece = piece
+        self.Add_Piece_To_Alive_Group(color, piece)
     def Initalizing_KQ_Rows(self, color, row):
         x = 1
         for column in row:
-            if(x == 1):
-                rook = Rook(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = rook
-                self.Add_Piece_To_Alive_Group(color, rook)
-            elif(x == 2):
-                knight = Knight(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = knight
-                self.Add_Piece_To_Alive_Group(color, knight)
-            elif(x == 3):
-                bishop = Bishop(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = bishop
-                self.Add_Piece_To_Alive_Group(color, bishop)
-            elif(x == 4 and "Black" in color):
-                knight = King(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = knight
-                self.Add_Piece_To_Alive_Group(color, knight)
-            elif(x == 5 and "Black" in color):
-                queen = Queen(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = queen
-                self.Add_Piece_To_Alive_Group(color, queen)
-            elif(x == 5 and "White" in color):
-                king = King(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = king
-                self.Add_Piece_To_Alive_Group(color, king)
-            elif(x == 4 and "White" in color):
-                queen = Queen(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = queen
-                self.Add_Piece_To_Alive_Group(color, queen)
-            elif(x == 6):
-                bishop = Bishop(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = bishop
-                self.Add_Piece_To_Alive_Group(color, bishop)
-            elif(x == 7):
-                knight = Knight(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = knight
-                self.Add_Piece_To_Alive_Group(color, knight)
-            elif(x == 8):
-                rook = Rook(color, column.x, column.y)
-                column.piece = True
-                column.chess_piece = rook
-                self.Add_Piece_To_Alive_Group(color, rook)
+            if(x == 1 or x == 8):
+                self.Initalize_Special_Pieces(column, color, Rook(color, column.x, column.y))
+            elif(x == 2 or x == 7):
+                self.Initalize_Special_Pieces(column, color, Knight(color, column.x, column.y))
+            elif(x == 3 or x == 6):
+                self.Initalize_Special_Pieces(column, color, Bishop(color, column.x, column.y))
+            elif(x == 4):
+                self.Initalize_Special_Pieces(column, color, King(color, column.x, column.y))
+            elif(x == 5):
+                self.Initalize_Special_Pieces(column, color, Queen(color, column.x, column.y))
             x += 1
 
     def Initalizing_Chess_Pieces(self): #Initalizing the whole board and Initalizing the object pieces
@@ -108,6 +71,7 @@ class chessBoard:
                 self.Initalizing_KQ_Rows("White", row)
             elif "7" in row[0].getSquareName():
                 self.Initalizing_Pawns("White", row)
+                #self.Initalizing_Pawns("Black", row)
             elif "2" in row[0].getSquareName():
                 #self.Initalizing_KQ_Rows("Black", row)
                 self.Initalizing_Pawns("Black", row)

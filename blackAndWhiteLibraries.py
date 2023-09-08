@@ -10,6 +10,12 @@ class blackAndWhiteLibraries:
     def get_All_Possible_Moves_For_All_Alive_Pieces(self, chessboard):
         for pieces in self.allAlivePieces:
             pieces.getMovableSpaces(chessboard)
+
+    def get_All_Possible_Moves_For_King(self, chessboard):
+        for pieces in self.allAlivePieces:
+            if "ing" in pieces.name:
+                return pieces.getMovableSpaces(chessboard)
+
     def find_King(self, chessboard):
         for row in chessboard:
             for space in row:
@@ -19,17 +25,33 @@ class blackAndWhiteLibraries:
     def check_King_Is_Checked_Or_Checkmated(self, chessboard, opponets):
         allPossibleOpponetsMoves = []
         kingLocation = self.find_King(chessboard)
-        print(kingLocation.square)
+        kingsMoves = self.get_All_Possible_Moves_For_King(chessboard)
+        kingsMovesAfterCheck = []
+        #print(kingLocation.square)
         for pieces in opponets.allAlivePieces:
             if "ing" not in pieces.name:
                 opponets.allPossibleMoves.append(pieces.getMovableSpaces(chessboard))
-            else:
-                kingsMoves = pieces.getMovableSpaces(chessboard)
         for piece in opponets.allPossibleMoves:
             for i in range(1,len(piece)):
                 if piece[i].square not in allPossibleOpponetsMoves:
                     allPossibleOpponetsMoves.append(piece[i].square)
-        print(allPossibleOpponetsMoves)
+        kingsMoves.pop(0)
+        #print(allPossibleOpponetsMoves)
+        #print(kingsMoves)
+        if kingLocation.square not in allPossibleOpponetsMoves:
+            print("Hurray Not Checkmate!!!!")
+            return self.get_All_Possible_Moves_For_All_Alive_Pieces(chessboard)
+        else:
+            print("Checkmate")
+            """ for move in kingsMoves:
+                if move.square not in allPossibleOpponetsMoves:
+                    kingsMovesAfterCheck.append(move.square)
+            if not kingsMovesAfterCheck:
+                print("Checkmate")
+            else:
+                print(kingsMovesAfterCheck)
+                return kingsMovesAfterCheck """
+        
 
     def add_Piece_To_Alive_List(self, piece):
         self.allAlivePieces.append(piece)

@@ -24,3 +24,6 @@ class chessPiece():  # Abstract class
     @abstractmethod
     def getMovableSpaces(self, chessboard):
         pass
+    @abstractmethod
+    def movePiece(self, chessboard):
+        pass
