@@ -11,6 +11,10 @@ class blackAndWhiteLibraries:
         for pieces in self.allAlivePieces:
             pieces.getMovableSpaces(chessboard)
 
+    def print_All_Possible_Moves_For_All_Alive_Pieces(self, chessboard):
+        for pieces in self.allAlivePieces:
+            pieces.getMovableSpaces(chessboard)
+
     def get_All_Possible_Moves_For_King(self, chessboard):
         for pieces in self.allAlivePieces:
             if "ing" in pieces.name:

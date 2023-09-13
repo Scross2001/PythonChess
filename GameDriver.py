@@ -13,11 +13,14 @@ def main():
         # Check if the current team's king is in check or checkmate
         if current_team == "White":
             check_result = chessboard.white_Team.check_King_Is_Checked_Or_Checkmated(chessboardMap, chessboard.black_Team)
+            teamLibrary = chessboard.white_Team
         else:
             check_result = chessboard.black_Team.check_King_Is_Checked_Or_Checkmated(chessboardMap, chessboard.white_Team)
+            teamLibrary = chessboard.black_Team
 
         if not check_result:
             print(f"{current_team} king is not in check or checkmate.")
+            teamLibrary.get_All_Possible_Moves_For_All_Alive_Pieces(chessboard)
         elif isinstance(check_result, list):
             print(f"{current_team} king is in check. Possible moves to get out of check:")
             for move in check_result:
