@@ -6,6 +6,11 @@ class chessPiece():  # Abstract class
         self.movableSpaces = []
         self.color = ""
         self.isAlive = True
+        self.squareName = ""
+    def setSquareName(self, squareName):
+        self.squareName = squareName
+    def getSquareName(self):
+        return self.squareName
     def getChessPieceName(self):
         return self.name
     def kill_Piece(self):

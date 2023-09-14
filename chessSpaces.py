@@ -10,6 +10,10 @@ class chessSpaces:
     def get_Chess_Piece(self):
         if(self.spotIsEmpty):
             return self.chess_piece
+    def getCordX(self):
+        return self.x
+    def getCordX(self):
+        return self.y
     def getCords(self):
         return "(" + str(self.x) + "," + str(self.y) + ")"
     def getSquareName(self):

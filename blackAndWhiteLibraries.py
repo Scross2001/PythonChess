@@ -12,9 +12,31 @@ class blackAndWhiteLibraries:
             pieces.getMovableSpaces(chessboard)
 
     def print_All_Possible_Moves_For_All_Alive_Pieces(self, chessboard):
-        for pieces in self.allAlivePieces:
-            pieces.getMovableSpaces(chessboard)
-
+        for piece in self.allAlivePieces:
+            possiblePieceMoves = piece.getMovableSpaces(chessboard)
+            print(f"{piece.getSquareName()} {possiblePieceMoves[0]} is able to move to: ", end="")
+            for i in range(1,len(possiblePieceMoves)):
+                print(possiblePieceMoves[i].square,end=" ")
+            print()
+    
+    def check_If_Move_Is_Possible(self, currentSpot, possibleSpot, chessboard):
+        allMovableSpaces = currentSpot.chess_piece.getMovableSpaces(chessboard)
+        if possibleSpot in allMovableSpaces:
+                return True
+        return False
+    
+    def move_peiece(self, currentSpot, possibleSpot, opposing, chessboard):
+        allMovableSpaces = currentSpot.chess_piece.getMovableSpaces(chessboard)
+        if possibleSpot in allMovableSpaces:
+            if possibleSpot.piece:
+                opposing.add_Piece_To_Dead_Group(possibleSpot.chess_piece)
+            possibleSpot.chess_piece = currentSpot.chess_piece
+            possibleSpot.piece = True
+            currentSpot.piece = False
+            currentSpot.chess_piece = chessPiece()
+            possibleSpot.chess_piece.setInitalCords(possibleSpot.x, possibleSpot.y)
+            possibleSpot.chess_piece.squareName = possibleSpot.square
+    
     def get_All_Possible_Moves_For_King(self, chessboard):
         for pieces in self.allAlivePieces:
             if "ing" in pieces.name:
@@ -59,20 +81,19 @@ class blackAndWhiteLibraries:
 
     def add_Piece_To_Alive_List(self, piece):
         self.allAlivePieces.append(piece)
-    def find_Piece_From_Dead_Or_Alive(self, isItAlive, piece):
-        if(isItAlive):
-            for aliveOrDeadPiece in self.allAlivePieces:
-                if aliveOrDeadPiece.getCords() in piece.getCords():
-                    return aliveOrDeadPiece
+    def find_Alive_Piece(self, piece):
+        for alivePiece in self.allAlivePieces:
+            if alivePiece.squareName in piece.squareName:
+                return alivePiece
     def add_Piece_To_Dead_Group(self, piece):
-        alivePiece = self.find_Piece_From_Dead_Or_Alive(piece)
+        alivePiece = self.find_Alive_Piece(piece)
         self.allAlivePieces.remove(alivePiece)
         self.allDeadPieces.append(alivePiece)
     
     def Print_Alive_And_Dead_Groups(self):
         print(f"\t\t{self.name} Alive Group\t\t")
         for alive in self.allAlivePieces:
-            print(f"{alive.name} ({alive.getCordX()},{alive.getCordY()})")
+            print(f"{alive.name} is at location = {alive.getSquareName()}")
         print(f"\t\t{self.name} Dead Group")
         for dead in self.allDeadPieces:
             print(f"{dead.name}")

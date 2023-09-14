@@ -32,13 +32,17 @@ class chessBoard:
     
     def Initalizing_Pawns(self, color, row):
         for column in row:
-            pawn = Pawn(color, column.x, column.y)
+            pawn = Pawn(color, column.x, column.y, column.square)
             column.piece = True
             column.chess_piece = pawn
             self.Add_Piece_To_Alive_Group(color, pawn)
     #def movePiece(self, current, newSpot, color):
         
-
+    def findSquare(self, squareName):
+        for row in self.chessboard:
+            for spot in row:
+                if spot.square in squareName:
+                    return spot
     def Add_Piece_To_Alive_Group(self, color, piece):
         if "Black" in color:
             self.black_Team.add_Piece_To_Alive_List(piece)
@@ -48,19 +52,20 @@ class chessBoard:
         spot.piece = True
         spot.chess_piece = piece
         self.Add_Piece_To_Alive_Group(color, piece)
+        piece.setSquareName(spot.square)
     def Initalizing_KQ_Rows(self, color, row):
         x = 1
         for column in row:
             if(x == 1 or x == 8):
-                self.Initalize_Special_Pieces(column, color, Rook(color, column.x, column.y))
+                self.Initalize_Special_Pieces(column, color, Rook(color, column.x, column.y, column.square))
             elif(x == 2 or x == 7):
-                self.Initalize_Special_Pieces(column, color, Knight(color, column.x, column.y))
+                self.Initalize_Special_Pieces(column, color, Knight(color, column.x, column.y, column.square))
             elif(x == 3 or x == 6):
-                self.Initalize_Special_Pieces(column, color, Bishop(color, column.x, column.y))
+                self.Initalize_Special_Pieces(column, color, Bishop(color, column.x, column.y, column.square))
             elif(x == 4):
-                self.Initalize_Special_Pieces(column, color, King(color, column.x, column.y))
+                self.Initalize_Special_Pieces(column, color, King(color, column.x, column.y, column.square))
             elif(x == 5):
-                self.Initalize_Special_Pieces(column, color, Queen(color, column.x, column.y))
+                self.Initalize_Special_Pieces(column, color, Queen(color, column.x, column.y, column.square))
             x += 1
 
     def Initalizing_Chess_Pieces(self): #Initalizing the whole board and Initalizing the object pieces

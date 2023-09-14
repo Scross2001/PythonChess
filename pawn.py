@@ -1,12 +1,13 @@
 from chessPiece import chessPiece
 
 class Pawn(chessPiece):  # Concrete subclass
-    def __init__(self, color, x, y):
+    def __init__(self, color, x, y, squareName):
         self.name = "Pawn" if "Black" in color else "pawn"
         self.color = color
         self.hasMoved = False
         self.movableSpaces = []
         self.setInitalCords(x, y)
+        self.squareName = squareName
     def getMovableSpaces(self, chessboard):
         self.movableSpaces = []
         self.movableSpaces.append(self.name)
@@ -42,10 +43,5 @@ class Pawn(chessPiece):  # Concrete subclass
             if self.cordY > 0 and chessboard[self.cordX - 1][self.cordY - 1].piece:
                 if chessboard[self.cordX - 1][self.cordY - 1].chess_piece.color != self.color:
                     self.movableSpaces.append(chessboard[self.cordX - 1][self.cordY - 1])
-
-        """ print(f"{self.color} Pawn at {startingLocation.getSquareName()} can move to: ",end="")
-        for move in self.movableSpaces:
-            print(move.getSquareName(),end= " ")
-        print() """
 
         return self.movableSpaces

@@ -1,10 +1,11 @@
 from chessPiece import chessPiece
 
 class Knight(chessPiece):  # Concrete subclass
-    def __init__(self, color, x, y):
+    def __init__(self, color, x, y, squareName):
         self.name = "Night" if "Black" in color else "night"
         self.color = color
         self.setInitalCords(x, y)
+        self.squareName = squareName
 
     def getMovableSpaces(self, chessboard):
         self.movableSpaces = []
